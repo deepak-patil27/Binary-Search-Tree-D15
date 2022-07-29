@@ -27,6 +27,23 @@ public class BinaryTree<K extends Comparable<K>>  {
 		this.root = this.addRecursively(root, key);
 	}
 	
+	private boolean searchTreeRecursively(BinaryNode<K> current, K key) {
+		if (current == null) {
+			return false;
+		}
+		int compareResult = key.compareTo(current.key);
+		if (compareResult == 0) {
+			return true;
+		}
+		return compareResult < 0 ? searchTreeRecursively(current.left, key) : searchTreeRecursively(current.right, key);
+	}
+
+	public boolean searchTree(K key) {
+		return searchTreeRecursively(root, key);
+	}
+	
+	
+	
 	private int getSizeRecursively(BinaryNode<K> current) {
 		return current == null? 0: 1 + this.getSizeRecursively(current.left)+this.getSizeRecursively(current.right);
 	}
@@ -36,7 +53,7 @@ public class BinaryTree<K extends Comparable<K>>  {
 	}
 	
 	public void printBinaryTree() {
-		System.out.println("Binary Tree: " + root);
+		System.out.println("\nBinary Tree: " + root);
 	}
 	
 	@Override
